@@ -73,77 +73,79 @@ fn run_bash_script_with_output(script: &str) -> io::Result<String> {
 use rustyline::error::ReadlineError; // Add this import
 use rustyline::Editor;
 use std::fs;
+
 //use std::io;
 use std::path::Path;
 
 // ... (Same handle_* functions as before) ...
 
-pub fn start_shell() {
-    println!("Simple Rust Shell");
-    println!("Type 'exit' to quit.");
+// pub fn start_shell() {
+//     println!("Simple Rust Shell");
+//     println!("Type 'exit' to quit.");
 
-    let mut rl = Editor::<rustyline::DefaultHelper, ()>::new();
+//     let mut rl = Editor::<rustyline::DefaultHelper, ()>::new();
 
-    rl.set_word_completer(Some(Box::new(|line, _pos| {
-        let mut completions = vec![];
+//     rl.set_word_completer(Some(Box::new(|line, _pos| {
+//         let mut completions = vec![];
 
-        // Add available scripts from the 'scripts' folder
-        let scripts_folder = Path::new("./scripts");
-        if let Ok(entries) = fs::read_dir(scripts_folder) {
-            for entry in entries {
-                if let Ok(entry) = entry {
-                    if let Some(name) = entry.file_name().to_str() {
-                        completions.push(name.to_string());
-                    }
-                }
-            }
-        }
+//         // Add available scripts from the 'scripts' folder
+//         let scripts_folder = Path::new("./scripts");
+//         if let Ok(entries) = fs::read_dir(scripts_folder) {
+//             for entry in entries {
+//                 if let Ok(entry) = entry {
+//                     if let Some(name) = entry.file_name().to_str() {
+//                         completions.push(name.to_string());
+//                     }
+//                 }
+//             }
+//         }
 
-        // Add available system commands by reading the PATH environment variable
-        if let Some(path) = std::env::var_os("PATH") {
-            let paths = std::env::split_paths(&path);
-            for path in paths {
-                if let Ok(entries) = fs::read_dir(path) {
-                    for entry in entries {
-                        if let Ok(entry) = entry {
-                            if let Some(name) = entry.file_name().to_str() {
-                                completions.push(name.to_string());
-                            }
-                        }
-                    }
-                }
-            }
-        }
+//         // Add available system commands by reading the PATH environment variable
+//         if let Some(path) = std::env::var_os("PATH") {
+//             let paths = std::env::split_paths(&path);
+//             for path in paths {
+//                 if let Ok(entries) = fs::read_dir(path) {
+//                     for entry in entries {
+//                         if let Ok(entry) = entry {
+//                             if let Some(name) = entry.file_name().to_str() {
+//                                 completions.push(name.to_string());
+//                             }
+//                         }
+//                     }
+//                 }
+//             }
+//         }
 
-        completions
-            .iter()
-            .filter(|c| c.starts_with(line))
-            .cloned()
-            .collect()
-    })));
+//         completions
+//             .iter()
+//             .filter(|c| c.starts_with(line))
+//             .cloned()
+//             .collect()
+//     })));
 
-    loop {
-        let readline = rl.readline(">> ");
-        match readline {
-            Ok(line) => {
-                rl.add_history_entry(line.as_str());
-                if line.trim() == "exit" {
-                    break;
-                } else {
-                    handle_command(&line);
-                }
-            }
-            Err(ReadlineError::Interrupted) | Err(ReadlineError::Eof) => {
-                println!("Exiting...");
-                break;
-            }
-            Err(err) => {
-                println!("Error: {:?}", err);
-                break;
-            }
-        }
-    }
-}
+//     loop {
+//         let readline = rl.readline(">> ");
+//         match readline {
+//             Ok(line) => {
+//                 rl.add_history_entry(line.as_str());
+//                 if line.trim() == "exit" {
+//                     break;
+//                 } else {
+//                     handle_command(&line);
+//                 }
+//             }
+//             Err(ReadlineError::Interrupted) | Err(ReadlineError::Eof) => {
+//                 println!("Exiting...");
+//                 break;
+//             }
+
+//             Err(err) => {
+//                 println!("Error: {:?}", err);
+//                 break;
+//             }
+//         }
+//     }
+// }
 
 fn main() {
     match run_unix_command_with_progress("ls", &["-l"]) {
