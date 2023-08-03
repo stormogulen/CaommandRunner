@@ -1,7 +1,7 @@
 
 # Rust Command Execution and Shell Interaction [![Rust](https://github.com/stormogulen/CommandRunner/actions/workflows/rust.yml/badge.svg)](https://github.com/stormogulen/CommandRunner/actions/workflows/rust.yml)
 
-This Rust program showcases different ways of executing system commands, running shell scripts, and interacting with a simple shell interface. It utilizes external crates such as `indicatif`, `std::process`, `rusqlite`, and `rustyline` to provide various functionalities.
+This Rust program showcases different ways of executing system commands, running shell scripts, and interacting with a simple shell interface. It utilizes external crates such as `indicatif`, `std::process`, and `rustyline` to provide various functionalities.
 
 ### Program Description
 
