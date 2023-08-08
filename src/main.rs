@@ -1,4 +1,3 @@
-//use handlebars::TemplateError;
 use indicatif::{ProgressBar, ProgressStyle};
 use std::io::{self, Error, ErrorKind};
 use std::process::{exit, Command};
@@ -70,7 +69,7 @@ fn run_bash_script_with_output(script: &str) -> io::Result<String> {
     run_command_with_output("bash", &["-c", script])
 }
 
-use rustyline::error::ReadlineError; // Add this import
+use rustyline::error::ReadlineError;
 use rustyline::Editor;
 use std::fs;
 
